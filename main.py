@@ -19,17 +19,20 @@ while True:
             pygame.quit()
             sys.exit()
         if event.type == pygame.KEYDOWN:
-            if event.key == pygame.K_LEFT:
+            if game.game_over == True:
+                game.game_over = False
+                game.reset()                    
+            if event.key == pygame.K_LEFT and game.game_over == False:
                 game.move_left()
-            if event.key == pygame.K_RIGHT:
+            if event.key == pygame.K_RIGHT and game.game_over == False:
                 game.move_right()
-            if event.key == pygame.K_DOWN:
+            if event.key == pygame.K_DOWN and game.game_over == False:
                 game.move_down()
-            if event.key == pygame.K_r:
+            if event.key == pygame.K_r and game.game_over == False:
                 game.rotate()
-            if event.key == pygame.K_SPACE:
+            if event.key == pygame.K_SPACE and game.game_over == False:
                 game.drop_down()
-        if event.type == GAME_UPDATE:
+        if event.type == GAME_UPDATE and game.game_over == False:
             game.move_down()
 
 
