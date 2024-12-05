@@ -9,6 +9,18 @@ class Game:
         self.current_block = self.get_random_block()
         self.next_block = self.get_random_block()
         self.game_over = False
+        self.score = 0
+
+    def update_score(self, lines_cleared):
+        if lines_cleared == 1:
+            self.score += 100
+        elif lines_cleared == 2:
+            self.score += 200
+        elif lines_cleared == 3:
+            self.score += 500
+        elif lines_cleared == 4:
+            self.score += 1000
+
 
     def get_random_block(self):
         if len(self.blocks) == 0:
@@ -46,7 +58,10 @@ class Game:
             self.grid.grid[position.row][position.column] = self.current_block.id
         self.current_block = self.next_block
         self.next_block = self.get_random_block()
-        self.grid.clear_full_rows()
+        rows_cleared = self.grid.clear_full_rows()
+        self.update_score(rows_cleared)
+        if self.block_fits() == False:
+            self.game_over = True
 
     def block_inside(self):
         tiles = self.current_block.get_cell_positions()
@@ -72,6 +87,8 @@ class Game:
         self.blocks = [IBlock(), JBlock(), LBlock(), OBlock(), SBlock(), TBlock(), ZBlock()]
         self.current_block = self.get_random_block()
         self.next_block = self.get_random_block()
+        self.score = 0
+
     def draw(self,screen):
         self.grid.draw(screen)
         self.current_block.draw(screen)
