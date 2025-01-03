@@ -10,6 +10,7 @@ class Game:
         self.next_block = self.get_random_block()
         self.game_over = False
         self.score = 0
+        self.level = 0
 
     def update_score(self, lines_cleared):
         if lines_cleared == 1:
@@ -21,6 +22,19 @@ class Game:
         elif lines_cleared == 4:
             self.score += 1000
 
+    def get_levels(self):
+        level_data = [
+            (500, 1, 400),
+            (1000, 2, 350),
+            (2000, 3, 300),
+            (8000, 4, 250),
+            (16000, 5, 200),
+            (32000, 6, 150),
+            (64000, 7, 100),
+            (128000, 8, 50),
+            (256000, 9, 25),
+        ]
+        return level_data
 
     def get_random_block(self):
         if len(self.blocks) == 0:
@@ -87,9 +101,22 @@ class Game:
         self.blocks = [IBlock(), JBlock(), LBlock(), OBlock(), SBlock(), TBlock(), ZBlock()]
         self.current_block = self.get_random_block()
         self.next_block = self.get_random_block()
+        self.level = 0
         self.score = 0
 
     def draw(self,screen):
         self.grid.draw(screen)
-        self.current_block.draw(screen)
+        self.current_block.draw(screen, 11, 11)
+        if self.next_block.id == 1:
+            self.next_block.draw(screen, 300, 420)
+        elif self.next_block.id == 2:
+            self.next_block.draw(screen, 300, 420)
+        elif self.next_block.id == 5:
+            self.next_block.draw(screen, 300, 420)
+        elif self.next_block.id == 6:
+            self.next_block.draw(screen, 295, 420)
+        elif self.next_block.id == 7:
+            self.next_block.draw(screen, 305, 420)
+        else:
+            self.next_block.draw(screen, 280, 420)
 

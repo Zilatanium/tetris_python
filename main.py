@@ -21,15 +21,17 @@ game = Game()
 
 GAME_UPDATE = pygame.USEREVENT
 pygame.time.set_timer(GAME_UPDATE, 500)
-
 while True:
     for event in pygame.event.get():
         if event.type == pygame.QUIT:
             pygame.quit()
             sys.exit()
+        # for threshold, level, timer in game.get_levels(): REMOVE FOR NOW
+        #         if game.score >= threshold and game.level != level:
+        #             print('spam')
+        #             game.level = level
+        #             pygame.time.set_timer(GAME_UPDATE, timer) # this is what slowing down the game, need to figure out different level sys
         if event.type == pygame.KEYDOWN:
-            if game.score == 100:
-                pygame.time.set_timer(GAME_UPDATE, 100)
             if game.game_over == True:
                 game.game_over = False
                 game.reset()                    
@@ -43,11 +45,14 @@ while True:
                 game.rotate()
             if event.key == pygame.K_SPACE and game.game_over == False:
                 game.drop_down()
+            if event.key == pygame.K_BACKSPACE and game.game_over == False:
+                game.reset()
+
         if event.type == GAME_UPDATE and game.game_over == False:
             game.move_down()
             game.update_score(0)
-
     score_value_surface = title_font.render(str(game.score), True, Colors.white)
+    level_value_surface = title_font.render(str(game.level), True, Colors.white)
     screen.fill(Colors.dark_blue)
     screen.blit(score_surface, (320, 20, 50, 50))
     screen.blit(level_surface, (320, 160, 50, 50))
@@ -57,6 +62,7 @@ while True:
     pygame.draw.rect(screen, Colors.light_blue, score_rect, 0, 10)
     screen.blit(score_value_surface, score_value_surface.get_rect(centerx = score_rect.centerx, centery = score_rect.centery))
     pygame.draw.rect(screen, Colors.light_blue, level_rect, 0, 10)
+    screen.blit(level_value_surface, level_value_surface.get_rect(centerx = level_rect.centerx, centery = level_rect.centery))
     pygame.draw.rect(screen, Colors.light_blue, next_rect, 0, 10)
     game.draw(screen)
     pygame.display.update()
