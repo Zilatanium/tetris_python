@@ -72,7 +72,7 @@ while True:
             game.move_down()
             game.update_score(0)
     score_value_surface = title_font.render(str(game.score), True, Colors.white)
-    level_value_surface = title_font.render(str(game.level), True, Colors.white)
+    level_value_surface = title_font.render(str(level), True, Colors.white)
     screen.fill(Colors.dark_blue)
     screen.blit(score_surface, (320, 20, 50, 50))
     screen.blit(level_surface, (320, 160, 50, 50))
