@@ -21,20 +21,7 @@ class Game:
             self.score += 500
         elif lines_cleared == 4:
             self.score += 1000
-
-    def get_levels(self):
-        level_data = [
-            (500, 1, 400),
-            (1000, 2, 350),
-            (2000, 3, 300),
-            (8000, 4, 250),
-            (16000, 5, 200),
-            (32000, 6, 150),
-            (64000, 7, 100),
-            (128000, 8, 50),
-            (256000, 9, 25),
-        ]
-        return level_data
+        
 
     def get_random_block(self):
         if len(self.blocks) == 0:

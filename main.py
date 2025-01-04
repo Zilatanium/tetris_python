@@ -21,16 +21,36 @@ game = Game()
 
 GAME_UPDATE = pygame.USEREVENT
 pygame.time.set_timer(GAME_UPDATE, 500)
+level = 0
 while True:
     for event in pygame.event.get():
         if event.type == pygame.QUIT:
             pygame.quit()
             sys.exit()
-        # for threshold, level, timer in game.get_levels(): REMOVE FOR NOW
-        #         if game.score >= threshold and game.level != level:
-        #             print('spam')
-        #             game.level = level
-        #             pygame.time.set_timer(GAME_UPDATE, timer) # this is what slowing down the game, need to figure out different level sys
+        if game.score > 500 and level == 0:
+            pygame.time.set_timer(GAME_UPDATE, 400)
+            level += 1
+        elif game.score > 1000 and level == 1:
+            pygame.time.set_timer(GAME_UPDATE, 350)
+            level += 1
+        elif game.score > 2000 and level == 2:
+            pygame.time.set_timer(GAME_UPDATE, 300)
+            level += 1
+        elif game.score > 8000 and level == 3:
+            pygame.time.set_timer(GAME_UPDATE, 250)
+            level += 1
+        elif game.score > 16000 and level == 4:
+            pygame.time.set_timer(GAME_UPDATE, 200)
+            level += 1
+        elif game.score > 32000 and level == 5:
+            pygame.time.set_timer(GAME_UPDATE, 150)
+            level += 1
+        elif game.score > 128000 and level == 6:
+            pygame.time.set_timer(GAME_UPDATE, 100)
+            level += 1
+        elif game.score >256000 and level == 7:
+            pygame.time.set_timer(GAME_UPDATE, 50)
+            level += 1
         if event.type == pygame.KEYDOWN:
             if game.game_over == True:
                 game.game_over = False
