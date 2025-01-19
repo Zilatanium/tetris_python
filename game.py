@@ -21,7 +21,17 @@ class Game:
             self.score += 500
         elif lines_cleared == 4:
             self.score += 1000
-        
+
+        self.update_level()
+
+    def update_level(self):
+        score_thresholds = [1000, 2000, 4000, 8000, 16000, 32000, 64000, 128000, 256000]
+        for i, threshold in enumerate(score_thresholds):
+            if self.score <= threshold:
+                self.level = i
+                break
+        else:
+            self.level = 9
 
     def get_random_block(self):
         if len(self.blocks) == 0:
@@ -33,26 +43,26 @@ class Game:
     def drop_down(self):
         while True:
             if self.block_inside() == False or self.block_fits() == False:
-                self.current_block.move(-1,0)
+                self.current_block.move(-1, 0)
                 break
-            self.current_block.move(1,0)
+            self.current_block.move(1, 0)
 
     def move_left(self):
-        self.current_block.move(0,-1)
+        self.current_block.move(0, -1)
         if self.block_inside() == False or self.block_fits() == False:
-            self.current_block.move(0,1)
+            self.current_block.move(0, 1)
             
     def move_right(self):
-        self.current_block.move(0,1)
+        self.current_block.move(0, 1)
         if self.block_inside() == False or self.block_fits() == False:
-            self.current_block.move(0,-1)
+            self.current_block.move(0, -1)
 
     def move_down(self):
-        self.current_block.move(1,0)
+        self.current_block.move(1, 0)
         if self.block_inside() == False or self.block_fits() == False:
-            self.current_block.move(-1,0)
+            self.current_block.move(-1, 0)
             self.lock_block()
-    
+
     def lock_block(self):
         tiles = self.current_block.get_cell_positions()
         for position in tiles:
@@ -82,7 +92,7 @@ class Game:
         self.current_block.rotate()
         if self.block_inside() == False or self.block_fits() == False:
             self.current_block.undo_rotation()
-    
+
     def reset(self):
         self.grid.reset()
         self.blocks = [IBlock(), JBlock(), LBlock(), OBlock(), SBlock(), TBlock(), ZBlock()]
@@ -91,7 +101,7 @@ class Game:
         self.level = 0
         self.score = 0
 
-    def draw(self,screen):
+    def draw(self, screen):
         self.grid.draw(screen)
         self.current_block.draw(screen, 11, 11)
         if self.next_block.id == 1:
@@ -106,4 +116,3 @@ class Game:
             self.next_block.draw(screen, 305, 420)
         else:
             self.next_block.draw(screen, 280, 420)
-
